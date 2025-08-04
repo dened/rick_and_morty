@@ -1,1 +1,36 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"rick-and-morty-11acd","appId":"1:95327148492:android:1009873fe95f420eee6569","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"rick-and-morty-11acd","configurations":{"android":"1:95327148492:android:1009873fe95f420eee6569","ios":"1:95327148492:ios:1d1589991ead0975ee6569","macos":"1:95327148492:ios:1d1589991ead0975ee6569","web":"1:95327148492:web:931036c9dbd5b2d3ee6569","windows":"1:95327148492:web:1d6cee006a489db3ee6569"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "rick-and-morty-11acd",
+          "appId": "1:95327148492:android:1009873fe95f420eee6569",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "rick-and-morty-11acd",
+          "configurations": {
+            "android": "1:95327148492:android:1009873fe95f420eee6569",
+            "ios": "1:95327148492:ios:1d1589991ead0975ee6569",
+            "macos": "1:95327148492:ios:1d1589991ead0975ee6569",
+            "web": "1:95327148492:web:931036c9dbd5b2d3ee6569",
+            "windows": "1:95327148492:web:1d6cee006a489db3ee6569"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "europe-west1"
+    }
+  }
+}
