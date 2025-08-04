@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "95327148492",
+    "project_id": "rick-and-morty-11acd",
+    "storage_bucket": "rick-and-morty-11acd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95327148492:android:ec21abfcbb6e2dc4ee6569",
+        "android_client_info": {
+          "package_name": "com.example.rick_and_morty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95327148492-j297tleeqhmj198uim5q158q6ak4891o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2SHgmvcpIKejcY4pCgAOsCNaCB97MUhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95327148492-j297tleeqhmj198uim5q158q6ak4891o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "95327148492-4odnjqa3qdpg8ignbd7fk5vbt13d2lsj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.chuvasov.rickAndMorty"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95327148492:android:1009873fe95f420eee6569",
+        "android_client_info": {
+          "package_name": "dev.chuvasov.rick_and_morty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95327148492-t174fodtu3tk1mmb4ltt4npg5m87o2qb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.chuvasov.rick_and_morty",
+            "certificate_hash": "36df9f515215170da98030986a0d47dc1e49a065"
+          }
+        },
+        {
+          "client_id": "95327148492-j297tleeqhmj198uim5q158q6ak4891o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2SHgmvcpIKejcY4pCgAOsCNaCB97MUhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95327148492-j297tleeqhmj198uim5q158q6ak4891o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "95327148492-4odnjqa3qdpg8ignbd7fk5vbt13d2lsj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.chuvasov.rickAndMorty"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
