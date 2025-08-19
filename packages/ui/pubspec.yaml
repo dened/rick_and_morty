@@ -1,0 +1,17 @@
+name: ui
+description: "Ui package"
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^3.9.0
+  flutter: ^3.35.1
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: any
+
+

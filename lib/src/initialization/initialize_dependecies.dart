@@ -1,11 +1,18 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:l/l.dart';
 import 'package:rick_and_morty/firebase_options.dart';
+import 'package:rick_and_morty/src/data_source/api_repository.dart';
+import 'package:rick_and_morty/src/data_source/remote_data_repository.dart';
 import 'package:rick_and_morty/src/database.dart';
+import 'package:rick_and_morty/src/home_screen/widget/home_screen.dart';
 import 'package:rick_and_morty/src/initialization/dependencies.dart';
+
 
 Future<Dependencies> initializeDependencies() async {
   final dependencies = Dependencies();
@@ -36,5 +43,20 @@ final Map<String, FutureOr<void> Function(Dependencies)> _initializationSteps = 
     final database = Database();
     await database.refresh();
     dependencies.db = database;
+  },
+  'Remote data repository initialization': (dependencies) async {
+    dependencies.remoteDataRepository = RemoteDataRepositoryImpl(FirebaseFirestore.instance);
+  },
+
+  'Navigator initialization': (dependencies) async {
+    dependencies.navigator = ValueNotifier([const MaterialPage<void>(child: HomeScreen())]);
+  },
+
+  'Api client initialization': (dependencies) async {
+    dependencies.client = HttpClient();
+  },
+
+  'Api repository initialization': (dependencies) async {
+    dependencies.apiRepository = ApiRepository(dependencies.client);
   },
 };

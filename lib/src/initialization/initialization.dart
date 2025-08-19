@@ -28,4 +28,3 @@ Future<void> initializeApp() async {
     runApp(ErrorWidget(error));
   }
 }
-// 'C:\ProgramData\chocolatey\lib\visualstudio2019-workload-vctools\tools\ChocolateyInstall.ps1

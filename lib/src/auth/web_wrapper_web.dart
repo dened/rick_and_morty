@@ -2,4 +2,5 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// ignore: depend_on_referenced_packages
 export 'package:google_sign_in_web/web_only.dart';

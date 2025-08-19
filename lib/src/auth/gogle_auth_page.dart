@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:rick_and_morty/src/auth/authentication.dart';
 import 'package:rick_and_morty/src/auth/web_wrapper.dart' as web;
 
 /// To run this example, replace this value with your client ID, and/or
@@ -240,6 +241,9 @@ class _SignInDemoState extends State<SignInDemo> {
     if (_isAuthorized) ...<Widget>[
       // The user has Authorized all required scopes.
       if (_contactText.isNotEmpty) Text(_contactText),
+
+      ElevatedButton(onPressed: _handleFirebaseAuth, child: const Text('SIGN_FIREBASE')),
+
       ElevatedButton(child: const Text('REFRESH'), onPressed: () => _handleGetContact(user)),
       if (_serverAuthCode.isEmpty)
         ElevatedButton(child: const Text('REQUEST SERVER CODE'), onPressed: () => _handleGetAuthCode(user))
@@ -262,7 +266,7 @@ class _SignInDemoState extends State<SignInDemo> {
         onPressed: () async {
           try {
             await GoogleSignIn.instance.authenticate();
-          } catch (e) {
+          } on Object catch (e) {
             // #enddocregion ExplicitSignIn
             _errorMessage = e.toString();
             // #docregion ExplicitSignIn
@@ -280,19 +284,22 @@ class _SignInDemoState extends State<SignInDemo> {
     // #enddocregion ExplicitSignIn
   ];
 
+  Future<void> _handleFirebaseAuth() async {
+    final userCredential = await signInWithGoogle();
+    print(userCredential);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text('Google Sign In')),
     body: ConstrainedBox(constraints: const BoxConstraints.expand(), child: _buildBody()),
   );
 
-  String _errorMessageFromSignInException(GoogleSignInException e) {
-    // In practice, an application should likely have specific handling for most
-    // or all of the, but for simplicity this just handles cancel, and reports
-    // the rest as generic errors.
-    return switch (e.code) {
-      GoogleSignInExceptionCode.canceled => 'Sign in canceled',
-      _ => 'GoogleSignInException ${e.code}: ${e.description}',
-    };
-  }
+  // In practice, an application should likely have specific handling for most
+  // or all of the, but for simplicity this just handles cancel, and reports
+  // the rest as generic errors.
+  String _errorMessageFromSignInException(GoogleSignInException e) => switch (e.code) {
+    GoogleSignInExceptionCode.canceled => 'Sign in canceled',
+    _ => 'GoogleSignInException ${e.code}: ${e.description}',
+  };
 }

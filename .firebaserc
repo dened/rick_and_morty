@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "rick-and-morty-11acd"
-  }
+    "default": "rick-and-morty-11acd",
+    "debug": "rick-and-morty-11acd"
+  },
+  "targets": {},
+  "etags": {}
 }

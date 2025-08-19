@@ -1,32 +1,43 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
+import 'package:rick_and_morty/src/_core/app_navigator.dart';
+import 'package:rick_and_morty/src/data_source/api_repository.dart';
+import 'package:rick_and_morty/src/data_source/remote_data_repository.dart';
 import 'package:rick_and_morty/src/database.dart';
 
 class Dependencies {
+  /// Inject dependencies into the widget tree.
+  Widget inject({required Widget child}) => InheritedDependencies(dependencies: this, child: child);
+
+  /// Get dependecies from BuildContext
+  static Dependencies of(BuildContext context) => InheritedDependencies.of(context);
+
   late final Database db;
 
-  Widget inject({required Widget child}) => InheritedDependencies(dependencies: this, child: child);
+  late final RemoteDataRepository remoteDataRepository;
+
+  late final ValueNotifier<NavigationState> navigator;
+
+  late final HttpClient client;
+
+  late final IApiRepository apiRepository;
 }
 
 /// {@template dependencies}
-/// Dependencies widget.
+/// InheritedDependencies widget.
 /// {@endtemplate}
 class InheritedDependencies extends InheritedWidget {
   /// {@macro dependencies}
-  const InheritedDependencies({
-    required super.child,
-    required Dependencies dependencies,
+  const InheritedDependencies({required this.dependencies, required super.child, super.key});
 
-    super.key, // ignore: unused_element
-  }) : _dependencies = dependencies;
-
-  final Dependencies _dependencies;
+  final Dependencies dependencies;
 
   /// The state from the closest instance of this class
   /// that encloses the given context, if any.
   /// e.g. `Dependencies.maybeOf(context)`.
-  static Dependencies? maybeOf(BuildContext context, {bool listen = true}) => listen
-      ? context.dependOnInheritedWidgetOfExactType<InheritedDependencies>()?._dependencies
-      : context.getInheritedWidgetOfExactType<InheritedDependencies>()?._dependencies;
+  static Dependencies? maybeOf(BuildContext context) =>
+      context.getInheritedWidgetOfExactType<InheritedDependencies>()?.dependencies;
 
   static Never _notFoundInheritedWidgetOfExactType() => throw ArgumentError(
     'Out of scope, not found inherited widget '
@@ -37,8 +48,7 @@ class InheritedDependencies extends InheritedWidget {
   /// The state from the closest instance of this class
   /// that encloses the given context.
   /// e.g. `Dependencies.of(context)`
-  static Dependencies of(BuildContext context, {bool listen = true}) =>
-      maybeOf(context, listen: listen) ?? _notFoundInheritedWidgetOfExactType();
+  static Dependencies of(BuildContext context) => maybeOf(context) ?? _notFoundInheritedWidgetOfExactType();
 
   @override
   bool updateShouldNotify(covariant InheritedDependencies oldWidget) => false;

@@ -24,7 +24,7 @@
       "strings": "on",
       "other": "on"
     },
-    "editor.links": true
+    "editor.links": true,
   },
   "dart.doNotFormat": [
     "**.g.dart",
@@ -38,6 +38,7 @@
   "dart.additionalAnalyzerFileExtensions": [
     "drift"
   ],
+  "dart.previewFlutterUiGuides": true,
   // Flutter Version Manager
   //"dart.flutterSdkPath": ".fvm/flutter_sdk",
   // Remove .fvm files from search

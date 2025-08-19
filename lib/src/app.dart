@@ -1,28 +1,83 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/src/auth/gogle_auth_page.dart';
+import 'package:meta/meta.dart';
+import 'package:rick_and_morty/src/_core/app_navigator.dart';
+import 'package:rick_and_morty/src/auth/widget/authentication_scope.dart';
+import 'package:rick_and_morty/src/initialization/dependencies.dart';
+import 'package:rick_and_morty/src/settings/widget/settings_scope.dart';
+import 'package:ui/ui.dart' as ui;
 
-/// {@template app}
 /// App widget.
-/// {@endtemplate}
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   /// {@macro app}
-  const App({super.key});
+  const App({
+    super.key, // ignore: unused_element
+  });
+
+  /// The state from the closest instance of this class
+  /// that encloses the given context, if any.
+  @internal
+  static AppState? maybeOf(BuildContext context) => context.findAncestorStateOfType<AppState>();
 
   @override
-  Widget build(BuildContext context) => const MaterialApp(
-    title: 'Material App',
-    home: SignInDemo(),
-    //   home: Scaffold(
-    //     appBar: AppBar(title: const Text('Material App Bar')),
-    //     body: const SafeArea(
-    //       child: Column(
-    //         children: [
-    //           Center(child: Text('Hello World')),
+  State<App> createState() => AppState();
+}
 
-    //           ElevatedButton(onPressed: signInWithGoogle, child: Text('Button')),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
+/// State for widget App.
+class AppState extends State<App> {
+  final Key _builderKey = GlobalKey();
+
+  ThemeMode _themeMode = ThemeMode.light;
+  ThemeMode get themeMode => _themeMode;
+
+  final ThemeData _lightTheme = ui.lightTheme();
+  final ThemeData _darkTheme = ui.darkTheme();
+
+  late final AppNavigator _navigator;
+
+  late final OverlayEntry _scopes = OverlayEntry(
+    builder: (context) => AuthenticationScope(child: SettingsScope(child: _navigator)),
+  );
+
+  /* #region Lifecycle */
+  @override
+  void initState() {
+    super.initState();
+    _navigator = AppNavigator.controlled(
+      controller: Dependencies.of(context).navigator,
+      key: const ValueKey('app-navigator'),
+    );
+  }
+
+  void setTheme(ThemeMode themeMode) {
+    if (_themeMode == themeMode) return;
+    setState(() => _themeMode = themeMode);
+  }
+
+  @override
+  void didUpdateWidget(covariant App oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Widget configuration changed
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // The configuration of InheritedWidgets has changed
+    // Also called after initState but before build
+  }
+
+  @override
+  void dispose() {
+    // Permanent removal of a tree stent
+    super.dispose();
+  }
+  /* #endregion */
+
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+    themeMode: _themeMode,
+    theme: _lightTheme,
+    darkTheme: _darkTheme,
+    builder: (context, child) => Overlay(key: _builderKey, clipBehavior: Clip.none, initialEntries: [_scopes]),
   );
 }
