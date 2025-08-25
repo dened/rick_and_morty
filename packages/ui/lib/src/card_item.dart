@@ -80,9 +80,8 @@ class _CardItemState extends State<CardItem> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 16,
+                    spacing: 8,
                     children: <Widget>[
-                      const SizedBox(height: 24),
                       AppText.titleMedium(widget.name),
                       StatusWidget(status: widget.status),
                       AppText.labelLarge(widget.species),

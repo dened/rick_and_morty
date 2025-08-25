@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/_core/app_navigator.dart';
 import 'package:rick_and_morty/src/home_screen/widget/character_tab.dart';
+import 'package:rick_and_morty/src/home_screen/widget/favorites_tab.dart';
 import 'package:rick_and_morty/src/home_screen/widget/settings_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,8 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-  final List<Widget> pages = [const CharacterTab(), const SettingsTab()];
+  int _currentIndex = 1;
+  final List<Widget> pages = [const CharacterTab(), const FavoritesTab(), const SettingsTab()];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     bottomNavigationBar: BottomNavigationBar(
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
       ],
       onTap: _onBottomBarTap,
