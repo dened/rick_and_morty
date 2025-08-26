@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:rick_and_morty/src/_core/app_navigator.dart';
 import 'package:rick_and_morty/src/auth/widget/authentication_scope.dart';
 import 'package:rick_and_morty/src/home_screen/controller/character_list_controller.dart';
+import 'package:rick_and_morty/src/home_screen/controller/favorites_list_controller.dart';
 import 'package:rick_and_morty/src/initialization/dependencies.dart';
 import 'package:rick_and_morty/src/settings/widget/settings_scope.dart';
 import 'package:ui/ui.dart' as ui;
@@ -39,9 +40,12 @@ class AppState extends State<App> {
   late final OverlayEntry _scopes = OverlayEntry(
     builder: (context) => AuthenticationScope(
       child: SettingsScope(
-        child: ControllerScope(
-          () => CharacterListController(repository: Dependencies.of(context).apiRepository),
-          child: _navigator,
+        child: ControllerScope<FavoritesListController>(
+          () => FavoritesListController(repository: Dependencies.of(context).favoritesRepository),
+          child: ControllerScope<CharacterListController>(
+            () => CharacterListController(repository: Dependencies.of(context).apiRepository),
+            child: _navigator,
+          ),
         ),
       ),
     ),

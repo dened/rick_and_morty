@@ -80,9 +80,6 @@ final class CharacterListState$Failed extends CharacterListState {
   String get type => 'failed';
 }
 
-/// Pattern matching for [CharacterListState].
-typedef CharacterListStateMatch<R, S extends CharacterListState> = R Function(S element);
-
 @immutable
 abstract base class _$CharacterListStateBase {
   const _$CharacterListStateBase({required this.characters, required this.cursor, required this.message});

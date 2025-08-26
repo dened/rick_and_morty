@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:l/l.dart';
 import 'package:rick_and_morty/src/data_source/models.dart';
 import 'package:rick_and_morty/src/home_screen/controller/character_list_controller.dart';
+import 'package:rick_and_morty/src/home_screen/widget/card_item.dart';
 import 'package:ui/ui.dart';
 
 /// Observer for [Controller], react to changes in the any controller.

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:rick_and_morty/src/_core/app_navigator.dart';
 import 'package:rick_and_morty/src/data_source/api_repository.dart';
+import 'package:rick_and_morty/src/data_source/favorites_repository.dart';
 import 'package:rick_and_morty/src/data_source/remote_data_repository.dart';
 import 'package:rick_and_morty/src/database.dart';
 
@@ -22,6 +23,8 @@ class Dependencies {
   late final HttpClient client;
 
   late final IApiRepository apiRepository;
+
+  late final IFavoritesRepository favoritesRepository;
 }
 
 /// {@template dependencies}

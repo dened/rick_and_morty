@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:l/l.dart';
 import 'package:rick_and_morty/firebase_options.dart';
 import 'package:rick_and_morty/src/data_source/api_repository.dart';
+import 'package:rick_and_morty/src/data_source/favorites_repository.dart';
 import 'package:rick_and_morty/src/data_source/remote_data_repository.dart';
 import 'package:rick_and_morty/src/database.dart';
 import 'package:rick_and_morty/src/home_screen/widget/home_screen.dart';
 import 'package:rick_and_morty/src/initialization/dependencies.dart';
-
 
 Future<Dependencies> initializeDependencies() async {
   final dependencies = Dependencies();
@@ -58,5 +58,10 @@ final Map<String, FutureOr<void> Function(Dependencies)> _initializationSteps = 
 
   'Api repository initialization': (dependencies) async {
     dependencies.apiRepository = ApiRepository(dependencies.client);
+  },
+
+  'Favorites repository initialization': (dependencies) async {
+    dependencies.favoritesRepository = FavoritesRepositoryInMemory();
+    dependencies.favoritesRepository.fetchFavorites().ignore();
   },
 };

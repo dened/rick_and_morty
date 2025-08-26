@@ -113,28 +113,13 @@ final ScrollController _scrollController = ScrollController();
                     Row(
                       spacing: 16,
                       children: [
-                        Expanded(child: CardItem(onTap: () => debugPrint('Card tapped.'))),
 
-                        Expanded(child: CardItem(status: Status.dead)),
                       ],
                     ),
                   ],
                 ),
 
-                SliverPadding(
-                  padding: const EdgeInsets.all(8.0),
-                  sliver: SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: columntCount(context),
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 8,
-                      childAspectRatio: 0.6,
-                    ),
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      return CardItem(status: index % 3 == 0 ? Status.alive : Status.dead);
-                    }, childCount: 20),
-                  ),
-                ),
+
               ],
             ),
           ),

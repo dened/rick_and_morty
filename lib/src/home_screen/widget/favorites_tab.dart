@@ -1,4 +1,8 @@
+import 'package:control/control.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rick_and_morty/src/data_source/models.dart';
+import 'package:rick_and_morty/src/home_screen/controller/favorites_list_controller.dart';
+import 'package:rick_and_morty/src/home_screen/widget/card_item.dart';
 import 'package:ui/ui.dart';
 
 class FavoritesString {
@@ -20,23 +24,11 @@ class FavoritesTab extends StatefulWidget {
 }
 
 /// State for widget FavoritesTab.
-class _FavoritesTabState extends State<FavoritesTab> with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<double> _scaleAnimation;
-  late final Animation<double> _rotateAnimation;
-
+class _FavoritesTabState extends State<FavoritesTab> {
   /* #region Lifecycle */
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1));
-    _scaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(_controller);
-    _rotateAnimation = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween<double>(begin: -0.02, end: 0.02), weight: 1),
-      TweenSequenceItem(tween: Tween<double>(begin: 0.02, end: -0.02), weight: 1),
-    ]).animate(_controller);
-
-    _controller.repeat(reverse: true);
   }
 
   @override
@@ -52,31 +44,55 @@ class _FavoritesTabState extends State<FavoritesTab> with SingleTickerProviderSt
     // Also called after initState but before build
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
   /* #endregion */
 
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RotationTransition(
-          turns: _rotateAnimation,
-          child: ScaleTransition(
-            scale: _scaleAnimation,
-            child: const Text('💔', style: TextStyle(fontSize: 100)),
-          ),
+  Widget build(BuildContext context) => StateConsumer<FavoritesListController, FavoritesListState>(
+    builder: (context, state, child) {
+      if (state.characters.isEmpty) return const EmptyFavoritesWidget();
+
+      return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.6,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
         ),
-        const AppText.headlineMedium(FavoritesString.noFavoritesTitle),
-        const SizedBox(height: 16),
-        const AppText.bodyLarge(FavoritesString.noFavoritesMessage, maxLines: 4),
-      ],
+        padding: const EdgeInsets.all(16),
+        itemBuilder: (context, index) {
+          final result = state.characters[index];
+          return CardItem(
+            imageUrl: result.image,
+            name: result.name,
+            status: result.status == CharacterStatus.alive ? Status.alive : Status.dead,
+            species: result.species,
+            location: result.location.name,
+          );
+        },
+        itemCount: state.characters.length,
+      );
+    },
+  );
+}
+
+class EmptyFavoritesWidget extends StatelessWidget {
+  const EmptyFavoritesWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) => const Padding(
+    padding: EdgeInsets.all(16),
+    child: Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        children: [
+          BrokenHeartWidget(),
+          AppText.headlineMedium(FavoritesString.noFavoritesTitle),
+          SizedBox(height: 16),
+          AppText.bodyLarge(FavoritesString.noFavoritesMessage, maxLines: 4),
+        ],
+      ),
     ),
   );
 }
