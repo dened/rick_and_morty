@@ -119,11 +119,7 @@ class _CharacterTabState extends State<CharacterTab> {
             }
             final result = results[index];
             return CardItem(
-              imageUrl: result.image,
-              name: result.name,
-              status: result.status == CharacterStatus.alive ? Status.alive : Status.dead,
-              species: result.species,
-              location: result.location.name,
+              character: result,
             );
           },
           itemCount: hasReachedMax ? results.length : results.length + 1,

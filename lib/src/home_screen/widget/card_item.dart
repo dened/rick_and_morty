@@ -1,4 +1,8 @@
+import 'package:collection/collection.dart';
+import 'package:control/control.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/src/data_source/models.dart';
+import 'package:rick_and_morty/src/home_screen/controller/favorites_list_controller.dart';
 import 'package:ui/ui.dart';
 
 /// {@template card_item}
@@ -7,21 +11,13 @@ import 'package:ui/ui.dart';
 class CardItem extends StatefulWidget {
   /// {@macro card_item}
   const CardItem({
+    required this.character,
     super.key, // ignore: unus
     this.onTap,
-    this.imageUrl = 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    this.name = 'Rick Sanchez',
-    this.status = Status.alive,
-    this.species = 'Human',
-    this.location = 'Earth (C-137)', // ignore: unused_element
   });
 
   final VoidCallback? onTap;
-  final String imageUrl;
-  final String name;
-  final Status status;
-  final String species;
-  final String location;
+  final Character character;
 
   @override
   State<CardItem> createState() => _CardItemState();
@@ -69,7 +65,7 @@ class _CardItemState extends State<CardItem> {
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12),
                       ),
-                      image: DecorationImage(image: NetworkImage(widget.imageUrl), fit: BoxFit.cover),
+                      image: DecorationImage(image: NetworkImage(widget.character.image), fit: BoxFit.cover),
                     ),
                   ),
                 ),
@@ -82,10 +78,12 @@ class _CardItemState extends State<CardItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 8,
                     children: <Widget>[
-                      AppText.titleMedium(widget.name),
-                      StatusWidget(status: widget.status),
-                      AppText.labelLarge(widget.species),
-                      AppText.labelMedium(widget.location),
+                      AppText.titleMedium(widget.character.name),
+                      StatusWidget(
+                        status: widget.character.status == CharacterStatus.alive ? Status.alive : Status.dead,
+                      ),
+                      AppText.labelLarge(widget.character.species),
+                      AppText.labelMedium(widget.character.origin.name),
                     ],
                   ),
                 ),
@@ -96,7 +94,21 @@ class _CardItemState extends State<CardItem> {
               alignment: Alignment.topRight,
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: FavoriteItemListIcon(value: true, onChanged: (_) {}),
+                child: ValueListenableBuilder(
+                  valueListenable: context.controllerOf<FavoritesListController>().select(
+                    (state) => state.characters.firstWhereOrNull((it) => it.id == widget.character.id) != null,
+                  ),
+                  builder: (context, value, _) => FavoriteItemListIcon(
+                    value: value,
+                    onChanged: (value) {
+                      if (value) {
+                        context.controllerOf<FavoritesListController>().addFavorite(widget.character);
+                      } else {
+                        context.controllerOf<FavoritesListController>().removeFavorite(widget.character);
+                      }
+                    },
+                  ),
+                ),
               ),
             ),
           ],

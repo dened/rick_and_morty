@@ -62,11 +62,7 @@ class _FavoritesTabState extends State<FavoritesTab> {
         itemBuilder: (context, index) {
           final result = state.characters[index];
           return CardItem(
-            imageUrl: result.image,
-            name: result.name,
-            status: result.status == CharacterStatus.alive ? Status.alive : Status.dead,
-            species: result.species,
-            location: result.location.name,
+            character: result,
           );
         },
         itemCount: state.characters.length,
