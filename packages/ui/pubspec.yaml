@@ -15,3 +15,7 @@ dependencies:
   meta: any
 
 
+flutter:
+  uses-material-design: true
+  shaders:
+    - assets/shaders/shimmer.frag

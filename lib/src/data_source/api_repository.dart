@@ -17,6 +17,9 @@ class ApiRepository implements IApiRepository {
       .getUrl(Uri.parse('https://rickandmortyapi.com/api/character/?page=$page'))
       .then((response) => response.close())
       .then((responseBody) => responseBody.transform(utf8.decoder).join())
-      .then<Map<String, dynamic>>((jsonString) => json.decode(jsonString) as Map<String, dynamic>)
+      .then<Map<String, dynamic>>((jsonString) async {
+        await Future<void>.delayed(const Duration(seconds: 1));
+        return json.decode(jsonString) as Map<String, dynamic>;
+      })
       .then(CharacterResponse.fromJson);
 }

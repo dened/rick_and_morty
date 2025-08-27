@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/src/app.dart';
+import 'package:ui/ui.dart';
 
 /// {@template home_screen}
 /// HomeScreen widget.
@@ -20,6 +21,11 @@ class SettingsTab extends StatelessWidget {
         value: App.maybeOf(context)?.themeMode == ThemeMode.light,
         title: const Text('Theme'),
         onChanged: (value) => App.maybeOf(context)?.setTheme(value ? ThemeMode.light : ThemeMode.dark),
+      ),
+
+      const Padding(
+        padding: EdgeInsets.all(8),
+        child: SizedBox(height: 200, child: Shimmer(radius: Radius.circular(32))),
       ),
     ],
   );

@@ -8,7 +8,6 @@ void main() {
   l.capture<void>(
     () => runZonedGuarded(() async {
       init.initializeApp().ignore();
-      
     }, l.e),
     const LogOptions(
       handlePrint: true,
