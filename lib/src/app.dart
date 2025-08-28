@@ -6,8 +6,7 @@ import 'package:rick_and_morty/src/auth/widget/authentication_scope.dart';
 import 'package:rick_and_morty/src/home_screen/controller/character_list_controller.dart';
 import 'package:rick_and_morty/src/home_screen/controller/favorites_list_controller.dart';
 import 'package:rick_and_morty/src/initialization/dependencies.dart';
-import 'package:rick_and_morty/src/settings/widget/settings_scope.dart';
-import 'package:ui/ui.dart' as ui;
+import 'package:ui/ui.dart' as theme show darkTheme, lightTheme;
 
 /// App widget.
 class App extends StatefulWidget {
@@ -29,29 +28,27 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   final Key _builderKey = GlobalKey();
 
-  ThemeMode _themeMode = ThemeMode.light;
-  ThemeMode get themeMode => _themeMode;
+  final ValueNotifier<ThemeMode> _themeModeNotifier = ValueNotifier(ThemeMode.light);
 
-  final ThemeData _lightTheme = ui.lightTheme();
-  final ThemeData _darkTheme = ui.darkTheme();
+  ValueNotifier<ThemeMode> get themeMode => _themeModeNotifier;
+
+  final ThemeData _lightTheme = theme.lightTheme();
+  final ThemeData _darkTheme = theme.darkTheme();
 
   late final AppNavigator _navigator;
 
   late final OverlayEntry _scopes = OverlayEntry(
     builder: (context) => AuthenticationScope(
-      child: SettingsScope(
-        child: ControllerScope<FavoritesListController>(
-          () => FavoritesListController(repository: Dependencies.of(context).favoritesRepository),
-          child: ControllerScope<CharacterListController>(
-            () => CharacterListController(repository: Dependencies.of(context).apiRepository),
-            child: _navigator,
-          ),
+      child: ControllerScope<FavoritesListController>(
+        () => FavoritesListController(repository: Dependencies.of(context).favoritesRepository),
+        child: ControllerScope<CharacterListController>(
+          () => CharacterListController(repository: Dependencies.of(context).apiRepository),
+          child: _navigator,
         ),
       ),
     ),
   );
 
-  /* #region Lifecycle */
   @override
   void initState() {
     super.initState();
@@ -62,35 +59,18 @@ class AppState extends State<App> {
   }
 
   void setTheme(ThemeMode themeMode) {
-    if (_themeMode == themeMode) return;
-    setState(() => _themeMode = themeMode);
+    if (_themeModeNotifier.value == themeMode) return;
+    _themeModeNotifier.value = themeMode;
   }
 
   @override
-  void didUpdateWidget(covariant App oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Widget configuration changed
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // The configuration of InheritedWidgets has changed
-    // Also called after initState but before build
-  }
-
-  @override
-  void dispose() {
-    // Permanent removal of a tree stent
-    super.dispose();
-  }
-  /* #endregion */
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-    themeMode: _themeMode,
-    theme: _lightTheme,
-    darkTheme: _darkTheme,
-    builder: (context, child) => Overlay(key: _builderKey, clipBehavior: Clip.none, initialEntries: [_scopes]),
+  Widget build(BuildContext context) => ValueListenableBuilder<ThemeMode>(
+    valueListenable: _themeModeNotifier,
+    builder: (context, value, child) => MaterialApp(
+      themeMode: value,
+      theme: _lightTheme,
+      darkTheme: _darkTheme,
+      builder: (context, child) => Overlay(key: _builderKey, clipBehavior: Clip.none, initialEntries: [_scopes]),
+    ),
   );
 }

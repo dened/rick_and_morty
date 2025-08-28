@@ -1,13 +1,13 @@
 import 'package:control/control.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rick_and_morty/src/data_source/models.dart';
+import 'package:rick_and_morty/src/_core/adaptive_content_list_widget.dart';
 import 'package:rick_and_morty/src/home_screen/controller/favorites_list_controller.dart';
 import 'package:rick_and_morty/src/home_screen/widget/card_item.dart';
 import 'package:ui/ui.dart';
 
 class FavoritesString {
   static const String noFavoritesTitle = 'No favorites yet';
-  static const String noFavoritesMessage = ' Add some characters to your favorites list! \nPress ❤️ in list';
+  static const String noFavoritesMessage = 'Add some characters to your favorites list! \nPress ❤️ in list';
 }
 
 /// {@template favorites_tab}
@@ -51,19 +51,10 @@ class _FavoritesTabState extends State<FavoritesTab> {
     builder: (context, state, child) {
       if (state.characters.isEmpty) return const EmptyFavoritesWidget();
 
-      return GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.6,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-        ),
-        padding: const EdgeInsets.all(16),
+      return AdaptiveContentListWidget(
         itemBuilder: (context, index) {
           final result = state.characters[index];
-          return CardItem(
-            character: result,
-          );
+          return CardItem(character: result);
         },
         itemCount: state.characters.length,
       );

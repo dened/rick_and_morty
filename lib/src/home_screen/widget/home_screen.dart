@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/src/_core/app_navigator.dart';
 import 'package:rick_and_morty/src/home_screen/widget/character_tab.dart';
 import 'package:rick_and_morty/src/home_screen/widget/favorites_tab.dart';
 import 'package:rick_and_morty/src/home_screen/widget/settings_tab.dart';
@@ -18,16 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text('Home'),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.settings),
-          onPressed: () => AppNavigator.push(context, Routes.settings.page()),
-        ),
-      ],
-    ),
-    body: pages[_currentIndex],
+    body: SafeArea(child: pages[_currentIndex]),
     bottomNavigationBar: BottomNavigationBar(
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

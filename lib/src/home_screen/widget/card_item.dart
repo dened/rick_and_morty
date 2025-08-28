@@ -145,3 +145,39 @@ class StatusWidget extends StatelessWidget {
     ),
   );
 }
+
+class CardItemSkeleton extends StatelessWidget {
+  const CardItemSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) => Card.outlined(
+    clipBehavior: Clip.hardEdge,
+    shape: RoundedRectangleBorder(
+      side: BorderSide(color: Theme.of(context).custom.border, width: 3),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: const Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AspectRatio(aspectRatio: 1, child: Shimmer()),
+
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
+            children: <Widget>[
+              Shimmer(size: Size(150, 22), radius: Radius.circular(4)),
+              Shimmer(size: Size(50, 18), radius: Radius.circular(8)),
+              Shimmer(size: Size(100, 16), radius: Radius.circular(4)),
+              Shimmer(size: Size(120, 12), radius: Radius.circular(4)),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
