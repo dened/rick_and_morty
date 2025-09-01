@@ -1,0 +1,30 @@
+-- {
+--   "id": 8,
+--   "name": "Post-Apocalyptic Earth",
+--   "type": "Planet",
+--   "dimension": "Post-Apocalyptic Dimension",
+--   "residents": [
+--     "https://rickandmortyapi.com/api/character/25",
+--     "https://rickandmortyapi.com/api/character/52",
+--     "https://rickandmortyapi.com/api/character/68",
+--     "https://rickandmortyapi.com/api/character/110",
+--     "https://rickandmortyapi.com/api/character/111",
+--     "https://rickandmortyapi.com/api/character/140",
+--     "https://rickandmortyapi.com/api/character/156",
+--     "https://rickandmortyapi.com/api/character/228",
+--     "https://rickandmortyapi.com/api/character/323",
+--     "https://rickandmortyapi.com/api/character/342"
+--   ],
+--   "url": "https://rickandmortyapi.com/api/location/8",
+--   "created": "2017-11-10T13:09:22.551Z"
+-- }
+
+CREATE TABLE locations (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    type TEXT,
+    dimension TEXT,
+    url TEXT,
+    created TEXT,
+    last_fetched INTEGER
+);

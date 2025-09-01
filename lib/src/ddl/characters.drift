@@ -1,0 +1,61 @@
+-- {
+--   "id": 140,
+--   "name": "Genital Washer",
+--   "status": "Alive",
+--   "species": "Human",
+--   "type": "",
+--   "gender": "Male",
+--   "origin": {
+--     "name": "Post-Apocalyptic Earth",
+--     "url": "https://rickandmortyapi.com/api/location/8"
+--   },
+--   "location": {
+--     "name": "Post-Apocalyptic Earth",
+--     "url": "https://rickandmortyapi.com/api/location/8"
+--   },
+--   "image": "https://rickandmortyapi.com/api/character/avatar/140.jpeg",
+--   "episode": [
+--     "https://rickandmortyapi.com/api/episode/23"
+--   ],
+--   "url": "https://rickandmortyapi.com/api/character/140",
+--   "created": "2017-12-27T18:47:44.566Z"
+-- }
+
+CREATE TABLE
+    characters (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        status TEXT,
+        species TEXT,
+        type TEXT,
+        gender TEXT,
+        origin_name TEXT,
+        origin_url TEXT,
+        location_id INTEGER,
+        image TEXT,
+        created TEXT,
+        last_fetched INTEGER
+        --req Created date(unixtime in seconds)
+        meta_created_at INTEGER NOT NULL DEFAULT (strftime ('%s', 'now')),
+        --req Updated date(unixtime in seconds)
+        meta_updated_at INTEGER NOT NULL DEFAULT (strftime ('%s', 'now')) CHECK (meta_updated_at >= meta_created_at)
+    ) STRICT;
+
+-- Triggers
+-- CREATE TRIGGER IF NOT EXISTS characters_update_trigger AFTER
+-- UPDATE ON characters BEGIN
+-- UPDATE characters
+-- SET
+--     meta_updated_at = strftime ('%s', 'now')
+-- WHERE
+--     k = NEW.k;
+
+-- END;
+CREATE TRIGGER IF NOT EXISTS characters_update_trigger AFTER
+UPDATE ON characters BEGIN
+UPDATE characters
+SET meta_updated_at = strftime ('%s', 'now')
+WHERE id = NEW.id;
+END;
+    
+
