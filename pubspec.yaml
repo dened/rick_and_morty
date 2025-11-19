@@ -1,13 +1,12 @@
 name: rick_and_morty
 description: "A new Flutter project."
-publish_to: 'none' 
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: "^3.9.0"
-  flutter: "^3.35.1"
-
+  sdk: ">=3.9.0 <4.0.0"
+  flutter: ">=3.38.0"
 
 workspace:
   - packages/ui
@@ -48,7 +47,6 @@ dependencies:
   google_sign_in: ^7.2.0
   cloud_firestore: ^6.1.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -59,7 +57,7 @@ dev_dependencies:
   # Code generation
   build_runner: ^2.10.1
   drift_dev: ^2.29.0
-  # json_serializable: ^6.9.5 
+  # json_serializable: ^6.9.5
   # intl_translation: ^0.20.1
 
 flutter:

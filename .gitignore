@@ -45,6 +45,8 @@ app.*.map.json
 /android/app/release
 /android/node_modules
 
-
 # Firebase
 .firebase/
+
+# FVM Version Cache
+.fvm/

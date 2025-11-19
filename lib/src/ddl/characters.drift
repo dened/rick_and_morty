@@ -42,15 +42,6 @@ CREATE TABLE
     ) STRICT;
 
 -- Triggers
--- CREATE TRIGGER IF NOT EXISTS characters_update_trigger AFTER
--- UPDATE ON characters BEGIN
--- UPDATE characters
--- SET
---     meta_updated_at = strftime ('%s', 'now')
--- WHERE
---     k = NEW.k;
-
--- END;
 CREATE TRIGGER IF NOT EXISTS characters_update_trigger AFTER
 UPDATE ON characters BEGIN
 UPDATE characters

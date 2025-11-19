@@ -24,7 +24,7 @@
       "strings": "on",
       "other": "on"
     },
-    "editor.links": true,
+    "editor.links": true
   },
   "dart.doNotFormat": [
     "**.g.dart",
@@ -39,24 +39,18 @@
     "drift"
   ],
   "dart.previewFlutterUiGuides": true,
-  // Flutter Version Manager
-  //"dart.flutterSdkPath": ".fvm/flutter_sdk",
-  // Remove .fvm files from search
   "search.exclude": {
     "**/.fvm": true,
     ".dart_tool": true,
     "coverage": true,
     "build": true
   },
-  // Remove from file watching
   "files.watcherExclude": {
     "**/.fvm": true,
     ".dart_tool": true,
     "coverage": true,
     "build": true
   },
-  // Causes the debug view to automatically appear when a breakpoint is hit. This
-  // setting is global and not configurable per-language.
   "debug.openDebug": "openOnDebugBreak",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
@@ -74,5 +68,6 @@
     "*.drift": "sql",
     "*.arb": "jsonc"
   },
-  "cmake.sourceDirectory": "D:/dev/rick_and_morty/linux"
+  "cmake.sourceDirectory": "D:/dev/rick_and_morty/linux",
+  "dart.flutterSdkPath": ".fvm/versions/stable"
 }

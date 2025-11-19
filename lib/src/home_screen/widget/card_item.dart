@@ -173,7 +173,6 @@ class CardItemSkeleton extends StatelessWidget {
               Shimmer(size: Size(150, 22), radius: Radius.circular(4)),
               Shimmer(size: Size(50, 18), radius: Radius.circular(8)),
               Shimmer(size: Size(100, 16), radius: Radius.circular(4)),
-              Shimmer(size: Size(120, 12), radius: Radius.circular(4)),
             ],
           ),
         ),
